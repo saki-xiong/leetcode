@@ -1,0 +1,27 @@
+
+不定长滑动窗口变种问题
+https://leetcode.cn/problems/minimum-removals-to-balance-array/
+原问题描述理解下来情况比较复杂，自然想到一定有办法简化，因为只需要记录删除元素的最小个数，不需要记录原始的索引，那么自然可以想到对原数组进行排序后，原问题可以转化为一个标准的滑动窗口问题
+
+class Solution(object):
+    def minRemoval(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        nums.sort()
+
+        max_remain = 0
+        l = 0
+
+        for r, num in enumerate(nums):
+            #max = num, min = nums[l]
+
+            while nums[l] * k < num:
+                l += 1
+            
+            max_remain = max(max_remain, r - l + 1)
+        
+        return len(nums) - max_remain
+        
